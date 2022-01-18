@@ -1,9 +1,12 @@
 package com.example.service;
 
+import com.example.DTO.ActorDTO;
+import com.example.DTO.FilmDTO;
 import com.example.entity.Actor;
 import com.example.repository.ActorRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +28,11 @@ public class ActorService {
     public List<Actor> getActor() {
         System.out.println(actorRepository.findAll().size());
         return actorRepository.findAll();
+    }
+
+    public List<ActorDTO> getAllActorFilm() {
+        ActorDTO actorDTO = new ActorDTO();
+        return actorDTO.getActorDTOList(actorRepository.findAll());
     }
 
     public Actor getActorById(Long id) {

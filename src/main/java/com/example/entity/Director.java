@@ -1,11 +1,21 @@
 package com.example.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name="director")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class Director {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,48 +31,6 @@ public class Director {
     //   private Set <Film> films;
     @JsonIgnore
     @ManyToMany(mappedBy = "filmDirectors")
-    private Set<Film> films;
+    private List<Film> films;
 
-    public Director() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getNationalityDirector() {
-        return nationalityDirector;
-    }
-
-    public void setNationalityDirector(String nationalityDirector) {
-        this.nationalityDirector = nationalityDirector;
-    }
-
-    public Set<Film> getFilms() {
-        return films;
-    }
-
-    public void setFilms(Set<Film> films) {
-        this.films = films;
-    }
-
-    public String getFirstNameDirector() {
-        return firstNameDirector;
-    }
-
-    public void setFirstNameDirector(String firstNameDirector) {
-        this.firstNameDirector = firstNameDirector;
-    }
-
-    public String getLastNameDirector() {
-        return lastNameDirector;
-    }
-
-    public void setLastNameDirector(String lastNameDirector) {
-        this.lastNameDirector = lastNameDirector;
-    }
 }

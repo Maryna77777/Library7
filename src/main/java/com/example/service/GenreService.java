@@ -1,9 +1,12 @@
 package com.example.service;
 
+import com.example.DTO.FilmDTO;
+import com.example.DTO.GenreDTO;
 import com.example.entity.Film;
 import com.example.entity.Genre;
 import com.example.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +41,11 @@ public class GenreService {
         Genre existingGenre = genreRepository.findById(genre.getId()).orElse(null);
         existingGenre.setCategory (genre.getCategory());
         return genreRepository.save(existingGenre);
+    }
+
+    public List<GenreDTO> getAllGenreFilm() {
+        GenreDTO genreDTO = new GenreDTO();
+        return genreDTO.getGenreDTOList(genreRepository.findAll());
     }
 
 

@@ -1,7 +1,8 @@
 package com.example.controller;
 
+import com.example.DTO.DirectorDTO;
+import com.example.DTO.FilmDTO;
 import com.example.entity.Director;
-import com.example.entity.Film;
 import com.example.service.DirectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/director")
 public class DirectorRestController {
     @Autowired
     DirectorService directorService;
@@ -47,6 +49,11 @@ public class DirectorRestController {
         return directorService.getDirectorByLastName(lastNameDirector);
     }
 
+    @GetMapping("/allDirectorFilm")
+    public List<DirectorDTO> getAllDirectorFilm(){
+
+        return directorService.getAllDirectorFilm();
+    }
     @PutMapping("/updateDirector")
     public Director updateDirector(@RequestBody Director director) {
         return directorService.updateDirector(director);

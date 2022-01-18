@@ -1,5 +1,7 @@
 package com.example.service;
 
+import com.example.DTO.DirectorDTO;
+import com.example.DTO.FilmDTO;
 import com.example.entity.Director;
 import com.example.entity.Film;
 import com.example.repository.DirectorRepository;
@@ -51,6 +53,11 @@ public class DirectorService {
     public List<Director> getDirector() {
 
         return directorRepository.findAll(Sort.by("lastNameDirector"));
+    }
+
+    public List<DirectorDTO> getAllDirectorFilm() {
+        DirectorDTO directorDTO = new DirectorDTO();
+        return directorDTO.getDirectorDTOList(directorRepository.findAll());
     }
 
     public Page<Director> getDirectorPage(Pageable pageable) {

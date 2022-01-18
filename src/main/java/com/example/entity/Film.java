@@ -1,15 +1,25 @@
 package com.example.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name="film")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 
 public class Film implements Serializable {
     @Id
@@ -38,7 +48,7 @@ public class Film implements Serializable {
             joinColumns = @JoinColumn(name = "FILM_ID"),
             inverseJoinColumns = @JoinColumn(name = "ACTOR_ID")
     )
-    private Set<Actor> actors;
+    private List<Actor> actors;
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -47,7 +57,7 @@ public class Film implements Serializable {
             joinColumns = @JoinColumn(name = "FILM_ID"),
             inverseJoinColumns = @JoinColumn(name = "GENRE_ID")
     )
-    private Set <Genre> genres;
+    private List <Genre> genres;
 
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -56,79 +66,6 @@ public class Film implements Serializable {
             joinColumns = @JoinColumn(name = "FILM_ID"),
             inverseJoinColumns = @JoinColumn(name = "DIRECTOR_ID")
     )
-    private Set <Director> filmDirectors = new HashSet<>();
-
-    public Film() {
-    }
-
-    public Set<Actor> getActors() {
-        return actors;
-    }
-
-    public void setActors(Set<Actor> actors) {
-        this.actors = actors;
-    }
-
-    public Set<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(Set<Genre> genres) {
-        this.genres = genres;
-    }
-
-    public Set<Director> getFilmDirectors() {
-        return filmDirectors;
-    }
-
-    public void setFilmDirectors(Set<Director> filmDirectors) {
-        this.filmDirectors = filmDirectors;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    @Override
-    public String toString() {
-        return "Film{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", year=" + year +
-                ", country='" + country + '\'' +
-                //  ", actors=" + actors +
-                //   ", genres=" + genres +
-                //  ", filmDirectors=" + filmDirectors +
-                '}';
-    }
-
+    private List <Director> filmDirectors = new ArrayList<>();
 
 }

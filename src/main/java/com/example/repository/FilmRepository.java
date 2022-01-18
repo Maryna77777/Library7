@@ -1,5 +1,6 @@
 package com.example.repository;
 
+import com.example.DTO.FilmMapperDTO;
 import com.example.entity.Film;
 import com.example.entity.Genre;
 import org.springframework.data.domain.Page;
@@ -17,11 +18,15 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Set;
 
+@Repository
+
 public interface FilmRepository extends JpaRepository <Film,Long> {
 
-//    List<Film> findAll(Sort sort );
+//    List<Film> findAll(Sort sort);
 
     Page<Film> findAll(Pageable pageable);
+
+//    List<FilmMapperDTO> getAllFilm1();
 
     Film findByTitle(String title);
 
@@ -32,7 +37,11 @@ public interface FilmRepository extends JpaRepository <Film,Long> {
     @Query("select  f from Film f join f.genres g where g.category = :category")
     List<Film> findByCategory(@Param("category") String category);
 
-    @Query("select  f from Film f join f.filmDirectors d where d.lastNameDirector = :lastNameDirector  ")
+    @Query("select count(f) from Film f join f.genres g where g.category = :category")
+    long countFilmByCategory(@Param("category") String category);
+
+
+    @Query("select f from Film f join f.filmDirectors d where d.lastNameDirector = :lastNameDirector  ")
     List<Film> findByLastNameDirector(@Param("lastNameDirector") String lastNameDirector, Sort sort);
 
     List<Film> findByYear(int year);
@@ -46,6 +55,12 @@ public interface FilmRepository extends JpaRepository <Film,Long> {
     @Query("select  f from Film f join f.actors a where  a.lastName = :lastName")
     List<Film> findByLastName(@Param("lastName") String lastName);
 
+    long countFilmByCountry(String country);
+
+    long countFilmByYear(int year);
+
+    @Query("select count(f) from Film f join f.genres g where g.id = :id")
+    long countFilmByCategoryById(@Param("id") Long id);
 }
 
 
