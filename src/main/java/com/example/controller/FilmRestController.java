@@ -1,21 +1,14 @@
 package com.example.controller;
 
 import com.example.DTO.FilmDTO;
-import com.example.DTO.FilmMapperDTO;
-import com.example.entity.Actor;
-import com.example.entity.Director;
 import com.example.entity.Film;
-import com.example.repository.FilmRepository;
 import com.example.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,22 +23,11 @@ public class FilmRestController {
 
     @Autowired
     private FilmService service;
-    @Autowired
-    private FilmRepository filmRepository;
 
-    @PostMapping("/addFilm")
-    public Film addFilm(@Valid @RequestBody Film film, BindingResult bindingResult) {
+    @PostMapping("/")
+    public Film addFilm(@Valid @RequestBody Film film) {
         return service.saveFilm(film);
     }
-
-//    @PostMapping("/addFilmA")
-//    public Film addFilmA (@Valid @RequestBody Film film, BindingResult bindingResult) {
-//        return service.save1(film);
-//    }
-//    @PostMapping("/addFilmAct")
-//    public List<Film> addFilmsAct (@Valid @RequestBody List<Film> filmList, BindingResult bindingResult) {
-//        return service.save2(filmList);
-//    }
 
     @PostMapping("/addFilms")
     public List<Film> addFilms(@RequestBody @Valid List<Film> filmList) {
@@ -57,15 +39,9 @@ public class FilmRestController {
         return service.getFilm();
     }
 
-    @GetMapping("/all")
-    public List<FilmDTO> getAllFilm() {
-
-        return service.getAllFilmActor();
-    }
-
-    @GetMapping("/all1")
-    public List<FilmMapperDTO> getAllFilms() {
-        return service.getAllFilm1();
+    @GetMapping("/allFilmsWhithActors")
+    public List<FilmDTO> findAllFilmsWithActors() {
+        return service.getAllFilmsWithActors();
     }
 
     @GetMapping("/allFilmsPage")
@@ -119,18 +95,13 @@ public class FilmRestController {
         return service.countCategory(category);
     }
 
-    @GetMapping("/count/FilmGenreId/{id}")
-    public long countFilmGenre(@PathVariable Long id) {
-        return service.countCategoryId(id);
-    }
-
-    @GetMapping("/count/FilmCountry/{country}")
+     @GetMapping("/count/FilmCountry/{country}")
     public long countFilmCountry(@PathVariable String country) {
         return service.countCountry(country);
     }
 
     @GetMapping("/count/FilmYear/{year}")
-    public long countFilmYear(@PathVariable int year ) {
+    public long countFilmYear(@PathVariable int year) {
         return service.countYear(year);
     }
 
@@ -143,53 +114,5 @@ public class FilmRestController {
     public List<Film> findFilmDirector(@PathVariable String lastNameDirector) {
         return service.getFilmDirector(lastNameDirector);
     }
-
-//    @GetMapping("count")
-//    public  long countFilm(){
-//        return service.count();
-//    }
-
-
-
 }
-//    @RequestMapping(value = "/addFilm", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public ResponseEntity <Film> addFilm (@Valid @RequestBody Film film, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors())
-//        {
-//            bindingResult
-//                    .getFieldErrors()
-//                    .forEach(f -> System.out.println(f.getField() + ": " + f.getDefaultMessage()));
-//            return new ResponseEntity(HttpStatus.BAD_REQUEST);
-//        }
-//        this.service.saveFilm(film);
-//        return new ResponseEntity<>(film, HttpStatus.CREATED);
-//    }
-//
-//    @PostMapping("/createFilmGenre")
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public Film createFilmGenre(@RequestBody Film film) {
-//        return service.createFilm (film);
-//    }
 
-
-//    @PostMapping("/addFilmAndActor1")
-//    @RequestMapping(value = "/addFilmActor",consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public Film addFilmAndActor1 (@RequestBody Film film) {
-//        return service.saveFilmAndActor(film);
-//    }
-
-//    @PostMapping("/addFilmActor")
-//    @RequestMapping(value = "/addFilmActor",consumes = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public Film addFilmAndActor (@RequestBody Film film, Actor actor) {
-//        return service.createFilmAndActor(film, actor);
-//    }
-
-//    @PostMapping("/saveFA")
-//    public Film saveFA (@RequestBody Film film){
-//        return service.createFA(film);
-//    }
-//     @PutMapping("/updateFilmActor")
-//    @RequestMapping(value = "/updateFilm", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-//    public Film updateFilmActor (@Valid @RequestBody Film film, Actor actor, BindingResult bindingResul) {
-//        return service.updateFilmActor(film, actor);
-//    }

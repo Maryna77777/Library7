@@ -1,6 +1,7 @@
 package com.example.mapper;
 
-import com.example.DTO.FilmMapperDTO;
+
+import com.example.DTO.FilmDTO;
 import com.example.entity.Film;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,5 +21,5 @@ public interface FilmMapper {
 //            @Mapping(source = "filmDirectors", target = "filmDirectorsList"),
 //
 //    })
-    FilmMapperDTO fromFilm(Film film);
+    FilmDTO fromFilm(Film film);
 }

@@ -17,7 +17,7 @@ public class GenreRestController {
     @GetMapping("/allGenreFilm")
     public List<GenreDTO> findAllGenreFilm(){
 
-        return genreService.getAllGenreFilm();
+        return genreService.getAllGenreWithFilm();
     }
 
     @PostMapping("/addGenre")

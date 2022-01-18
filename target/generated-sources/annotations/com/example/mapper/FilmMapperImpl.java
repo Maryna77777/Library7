@@ -1,31 +1,63 @@
 package com.example.mapper;
 
-import com.example.DTO.FilmMapperDTO;
+import com.example.DTO.ActorDTO;
+import com.example.DTO.FilmDTO;
+import com.example.entity.Actor;
 import com.example.entity.Film;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-12-03T12:52:54+0200",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.11 (Ubuntu)"
+    date = "2022-01-18T14:11:36+0200",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.13 (Ubuntu)"
 )
 public class FilmMapperImpl implements FilmMapper {
 
     @Override
-    public FilmMapperDTO fromFilm(Film film) {
+    public FilmDTO fromFilm(Film film) {
         if ( film == null ) {
             return null;
         }
 
-        FilmMapperDTO filmMapperDTO = new FilmMapperDTO();
+        FilmDTO filmDTO = new FilmDTO();
 
         if ( film.getId() != null ) {
-            filmMapperDTO.setId( film.getId() );
+            filmDTO.setId( film.getId() );
         }
-        filmMapperDTO.setTitle( film.getTitle() );
-        filmMapperDTO.setYear( film.getYear() );
-        filmMapperDTO.setCountry( film.getCountry() );
+        filmDTO.setTitle( film.getTitle() );
+        filmDTO.setYear( film.getYear() );
+        filmDTO.setCountry( film.getCountry() );
+        filmDTO.setActors( actorListToActorDTOList( film.getActors() ) );
 
-        return filmMapperDTO;
+        return filmDTO;
+    }
+
+    protected ActorDTO actorToActorDTO(Actor actor) {
+        if ( actor == null ) {
+            return null;
+        }
+
+        ActorDTO actorDTO = new ActorDTO();
+
+        actorDTO.setId( actor.getId() );
+        actorDTO.setFirstName( actor.getFirstName() );
+        actorDTO.setLastName( actor.getLastName() );
+
+        return actorDTO;
+    }
+
+    protected List<ActorDTO> actorListToActorDTOList(List<Actor> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<ActorDTO> list1 = new ArrayList<ActorDTO>( list.size() );
+        for ( Actor actor : list ) {
+            list1.add( actorToActorDTO( actor ) );
+        }
+
+        return list1;
     }
 }
