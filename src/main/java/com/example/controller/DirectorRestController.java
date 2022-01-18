@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.DTO.DirectorDTO;
+
 import com.example.DTO.FilmDTO;
 import com.example.entity.Director;
 import com.example.service.DirectorService;
@@ -49,11 +49,6 @@ public class DirectorRestController {
         return directorService.getDirectorByLastName(lastNameDirector);
     }
 
-    @GetMapping("/allDirectorFilm")
-    public List<DirectorDTO> getAllDirectorFilm(){
-
-        return directorService.getAllDirectorFilm();
-    }
     @PutMapping("/updateDirector")
     public Director updateDirector(@RequestBody Director director) {
         return directorService.updateDirector(director);

@@ -1,12 +1,8 @@
 package com.example.service;
 
-import com.example.DTO.ActorDTO;
+
 import com.example.DTO.FilmDTO;
-import com.example.DTO.FilmMapperDTO;
-import com.example.entity.Actor;
-import com.example.entity.Director;
 import com.example.entity.Film;
-import com.example.entity.Genre;
 import com.example.mapper.FilmMapper;
 
 import com.example.repository.FilmRepository;
@@ -16,21 +12,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
+
 
 @Service
 public class FilmService {
     @Autowired
     private FilmRepository filmRepository;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     public Film saveFilm(Film film) {
         return filmRepository.save(film);
@@ -40,15 +29,9 @@ public class FilmService {
         return filmRepository.saveAll(films);
     }
 
-//    public Film createFilmAndActor (Film film,Actor actor) {
-//      //  film.getActors().addAll((Collection<? extends Actor>) actor);
-//        film.getActors().add(actor);
-//        actor.getFilms().add(film);
-//        return filmRepository.save(film);
-//    }
 
-    public List<FilmMapperDTO> getAllFilm1() {
-        List<FilmMapperDTO> filmMapperDTOList = new ArrayList<>();
+    public List<FilmDTO> getAllFilmsWithActors() {
+        List<FilmDTO> filmMapperDTOList = new ArrayList<>();
         List<Film> filmList = filmRepository.findAll();
         for (Film film : filmList) {
             filmMapperDTOList.add(FilmMapper.FILM_MAPPER.fromFilm(film));
@@ -59,11 +42,6 @@ public class FilmService {
     public List<Film> getFilm() {
         System.out.println(filmRepository.findAll().size());
         return filmRepository.findAll(Sort.by("title"));
-    }
-
-    public List<FilmDTO> getAllFilmActor() {
-        FilmDTO filmDTO = new FilmDTO();
-        return filmDTO.getFilmDTOList(filmRepository.findAll(Sort.by("title")));
     }
 
     public Page<Film> getFilmPage(Pageable pageable) {
@@ -99,9 +77,6 @@ public class FilmService {
     }
 
     public List<Film> getFilmGenre(String category) {
-//        for (Film film : filmRepository.findByCategory (category)) {
-//            System.out.println(film.toString());
-//        }
         System.out.println(filmRepository.findByCategory(category).size());
         return filmRepository.findByCategory(category);
     }
@@ -126,10 +101,6 @@ public class FilmService {
 
     public long countCategory(String category) {
         return filmRepository.countFilmByCategory(category);
-    }
-
-    public long countCategoryId(Long id) {
-        return filmRepository.countFilmByCategoryById(id);
     }
 
     public long countCountry(String country) {

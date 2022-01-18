@@ -1,10 +1,7 @@
 package com.example.controller;
 
 
-import com.example.DTO.ActorDTO;
-import com.example.DTO.FilmDTO;
 import com.example.entity.Actor;
-import com.example.entity.Film;
 import com.example.repository.ActorRepository;
 import com.example.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +14,6 @@ import java.util.List;
 public class ActorRestController {
     @Autowired
     ActorService actorService;
-
-    @Autowired
-    private ActorRepository actorRepository;
 
     @PostMapping("/addActor")
     public Actor addActor (@RequestBody Actor actor) {
@@ -41,19 +35,7 @@ public class ActorRestController {
         return actorService.getActor ();
     }
 
-    @GetMapping("/actorsAll")
-    public List<ActorDTO> getAllActor(){
-        ActorDTO actorDTO = new ActorDTO();
-        return actorDTO.getActorDTOList(actorRepository.findAll());
-    }
-
-    @GetMapping("/allActorsFilm")
-    public List<ActorDTO> getAllActorFilm(){
-
-        return actorService.getAllActorFilm();
-    }
-
-    @GetMapping("/actorById/{id}")
+     @GetMapping("/actorById/{id}")
     public Actor findActorById(@PathVariable Long id) {
         return actorService.getActorById(id);
     }

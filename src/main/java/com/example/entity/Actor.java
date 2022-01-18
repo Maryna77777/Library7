@@ -10,7 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Getter
@@ -21,7 +21,6 @@ import java.util.Set;
 public class Actor implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name="ACTOR_ID")
     private long id;
     @NotBlank
     @Column(name = "FIRST_NAME")

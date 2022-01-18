@@ -4,11 +4,13 @@ import com.example.DTO.FilmDTO;
 import com.example.DTO.GenreDTO;
 import com.example.entity.Film;
 import com.example.entity.Genre;
+import com.example.mapper.FilmMapper;
+import com.example.mapper.GenreMapper;
 import com.example.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -43,11 +45,13 @@ public class GenreService {
         return genreRepository.save(existingGenre);
     }
 
-    public List<GenreDTO> getAllGenreFilm() {
-        GenreDTO genreDTO = new GenreDTO();
-        return genreDTO.getGenreDTOList(genreRepository.findAll());
+    public List<GenreDTO> getAllGenreWithFilm() {
+       List<GenreDTO> genreDTOList=new ArrayList<>();
+        List<Genre> genreList = (genreRepository.findAll());
+        for (Genre genre : genreList) {
+            genreDTOList.add(GenreMapper.Genre_MAPPER.fromGenre(genre));
+        }
+        return genreDTOList;
     }
-
-
 
 }

@@ -8,7 +8,6 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name="director")
@@ -19,7 +18,6 @@ import java.util.Set;
 public class Director {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //  @Column(name="DIRECTOR_ID")
     private long id;
     @Column(name = "firstNameDirector")
     private String firstNameDirector;
@@ -27,8 +25,6 @@ public class Director {
     private String lastNameDirector;
     @Column(name = "NATIONALITY_DIRECTOR")
     private String nationalityDirector;
-    //   @OneToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "filmDirector")
-    //   private Set <Film> films;
     @JsonIgnore
     @ManyToMany(mappedBy = "filmDirectors")
     private List<Film> films;

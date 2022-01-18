@@ -8,7 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity
 @Getter
@@ -19,7 +19,6 @@ import java.util.Set;
 public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@Column(name= "GENRE_ID")
     private Long id;
     @Column(name = "CATEGORY")
     private String category;
