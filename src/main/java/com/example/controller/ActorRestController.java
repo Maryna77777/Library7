@@ -2,7 +2,6 @@ package com.example.controller;
 
 
 import com.example.entity.Actor;
-import com.example.repository.ActorRepository;
 import com.example.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
